@@ -82,6 +82,8 @@
 
 <style scoped>
 	textarea {
-		white-space: nowrap;
+    	white-space: nowrap;  /* Para que el texto no haga wrap */
+    	overflow-y: hidden;   /* Ocultar el scroll vertical */
+    	overflow-x: auto;     /* Permitir el scroll horizontal */
 	}
 </style>
