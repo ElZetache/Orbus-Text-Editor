@@ -8,19 +8,22 @@ import (
 // la funcion devuelve true si se crea correctamente el fichero
 func create_file(nombreFichero string, pathFichero string) bool {
 	// esta será la ruta completa
+	res := true
 	fullPath := filepath.Join(pathFichero, nombreFichero)
 
 	// Crear fichero
 	file, err := os.Create(fullPath)
 	if err != nil {
-		return false
+		res = false
 	}
 	defer file.Close()
-	return true
+	return res
 }
 
+// en caso de mandar modificar un file que no existe lo crea, puede que con esta podamos prescindir de create_file()
+// ? utilizar create_file para crear ficheros vacios o usar solo esta
 func mod_file(nombreFichero string, pathFichero string, contenFichero string) bool {
-
+	res := true
 	fullPath := filepath.Join(pathFichero, nombreFichero)
 	//abrimos el fichero
 	//O_WRONLY --> para abrir en modo escritura
@@ -29,15 +32,17 @@ func mod_file(nombreFichero string, pathFichero string, contenFichero string) bo
 	//0777 --> permisos del fichero
 	ficheroAbierto, log := os.OpenFile(fullPath, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0777)
 	if log != nil {
-		return false
+		res = false
 	}
+	defer ficheroAbierto.Close() //Esto es necesario para evitar desbordamiento de datos, lo que hace es que se cierre el fichero al finalizar al funcion
+
 	// Escribe en el archivo
 	_, log = ficheroAbierto.WriteString(contenFichero)
 	if log != nil {
-		return false
+		res = false
 	}
 
-	return true
+	return res
 }
 
 func existeFichero(nombreFichero string, pathFichero string) bool {
@@ -49,3 +54,6 @@ func existeFichero(nombreFichero string, pathFichero string) bool {
 	return res
 }
 
+func main (){
+	mod_file("albert.txt","","hola mundo")
+}
