@@ -53,7 +53,3 @@ func existeFichero(nombreFichero string, pathFichero string) bool {
 	}
 	return res
 }
-
-func main (){
-	mod_file("albert.txt","","hola mundo")
-}
