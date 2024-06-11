@@ -4,6 +4,10 @@ Orbus is a text editor written in Go & TS. It is a work in progress.
 
 This project is a learning project to learn more about Go, TS and LSP.
 
+## Preview
+
+![alpha](./images/alpha.png)
+
 ## Features
 
 * [x] A space to write
